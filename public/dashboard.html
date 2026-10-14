@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Indicamos que utilizamos caracteres UTF-8. -->
+    <meta charset="UTF-8">
+
+    <!-- Hacemos que la página sea adaptable a móviles y ordenadores. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título que aparecerá en la pestaña del navegador. -->
+    <title>Gestor de Incidencias - Panel</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <main class="contenedor">
+
+        <header class="cabecera">
+
+            <!-- Información principal del dashboard -->
+            <div class="informacion-cabecera">
+
+                <h1>Gestor de Incidencias</h1>
+
+                <h2 id="bienvenida"></h2>
+
+                <p>Gestiona y consulta tus incidencias.</p>
+
+            </div>
+
+            <!-- Botón para cerrar sesión -->
+            <button id="cerrarSesion" class="btn-cerrar">
+                Cerrar sesión
+            </button>
+
+        </header>
+
+        <section class="seccion-incidencias">
+
+            <div class="cabecera-incidencias">
+
+                <div>
+                    <h2>Mis incidencias</h2>
+                    <p>Consulta, busca y gestiona tus incidencias.</p>
+                </div>
+
+            </div>
+
+            <div class="estadisticas">
+
+                <div class="tarjeta-estadistica">
+                    <span class="titulo-estadistica">
+                        Total
+                    </span>
+
+                    <strong id="contadorIncidencias">
+                        Incidencias: 0
+                    </strong>
+                </div>
+
+                <div class="tarjeta-estadistica">
+                    <span class="titulo-estadistica">
+                        Baja
+                    </span>
+
+                    <strong id="contadorBaja">
+                        Baja: 0
+                    </strong>
+                </div>
+
+                <div class="tarjeta-estadistica">
+                    <span class="titulo-estadistica">
+                        Media
+                    </span>
+
+                    <strong id="contadorMedia">
+                        Media: 0
+                    </strong>
+                </div>
+
+                <div class="tarjeta-estadistica">
+                    <span class="titulo-estadistica">
+                        Alta
+                    </span>
+
+                    <strong id="contadorAlta">
+                        Alta: 0
+                    </strong>
+                </div>
+
+            </div>
+
+            <!-- Este contenedor estará vacío inicialmente. JS consultará la API y añadirá
+             aquí las incidencias-->
+            <div class="controles-incidencias">
+
+                <div class="campo-filtro">
+                    <label for="filtroPrioridad">Prioridad</label>
+
+                    <select id="filtroPrioridad">
+                        <option value="todas">Todas</option>
+                        <option value="baja">Baja</option>
+                        <option value="media">Media</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+
+                <div class="campo-filtro campo-busqueda">
+                    <label for="buscarIncidencia">
+                        Buscar por título:
+                    </label>
+
+                    <input
+                        type="text"
+                        id="buscarIncidencia"
+                        placeholder="Escribe para buscar...">
+                </div>
+            </div>
+
+
+            <div id="listaIncidencias"></div>
+        </section>
+        <section class="seccion-formulario">
+            <h2>Nueva incidencia</h2>
+            <form id="incidenciaForm">
+                <div>
+                    <label for="titulo">Título:</label>
+                    <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    placeholder="Describe la incidencia"
+                    maxlength="100"
+                    required>
+                </div>
+                <br>
+                <div>
+                    <label for="prioridad">Prioridad:</label>
+                    <select id="prioridad" name="prioridad" required>
+                        <option value="">
+                            Selecciona una prioridad
+                        </option>
+                        <option value="baja">
+                            Baja
+                        </option>
+                        <option value="media">
+                            Media
+                        </option>
+                        <option value="alta">
+                            Alta
+                        </option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit" class="btn-crear">
+                    Crear incidencia
+                </button>
+            </form>
+            <!-- Aquí mostraremos mensajes como: "Incidencia creada correctamente" o 
+             posibles errores. -->
+             <p id="mensajeIncidencia"></p>
+        </section>
+
+    </main>
+
+<script src="/js/dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+/* Configuración general */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eff6ff, #f8fafc);
+    color: #1f2937;
+}
+
+/* Pantalla completa del login */
+.pantalla-login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* Tarjeta principal */
+.tarjeta-login {
+    width: 100%;
+    max-width: 440px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+    overflow: hidden;
+}
+
+/* Cabecera */
+.cabecera-login {
+    text-align: center;
+    padding: 35px 35px 25px;
+}
+
+/* Logo */
+.logo-aplicacion {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+/* Título */
+.cabecera-login h1 {
+    margin: 0 0 8px;
+    font-size: 27px;
+}
+
+/* Descripción */
+.cabecera-login p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Contenido del formulario */
+.contenido-login {
+    padding: 10px 35px 30px;
+}
+
+.contenido-login h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.texto-ayuda {
+    margin: 0 0 25px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Campos */
+.campo-login {
+    margin-bottom: 20px;
+}
+
+.campo-login label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.campo-login input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #111827;
+    font-size: 15px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Cuando hacemos click en un campo */
+.campo-login input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Botón de login */
+.btn-login {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-login:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-login:active {
+    transform: scale(0.98);
+}
+
+/* Mensajes */
+#mensaje {
+    margin: 15px 0 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Pie */
+.pie-login {
+    padding: 18px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* Adaptación para móviles */
+@media (max-width: 500px) {
+    .pantalla-login {
+        padding: 15px;
+    }
+    .cabecera-login {
+        padding: 30px 25px 20px;
+    }
+    .contenido-login {
+        padding: 10px 25px 25px;
+    }
+    .cabecera-login h1 {
+        font-size: 23px;
+    }
+}
+
+/* Recuperar contraseña */
+.enlace-recuperar {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.enlace-recuperar:hover {
+    text-decoration: underline;
+}
+
+/* Formulario de recuperación de contraseña */
+.recuperar-password {
+    margin-top: 24px;
+    padding: 28px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Título del formulario */
+.recuperar-password h2 {
+    margin: 0 0 12px;
+    color: #1f2937;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Texto explicativo */
+.recuperar-password > p {
+    margin: 0 0 26px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Separación entre los campos */
+.recuperar-password .campo-login {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 14px;
+}
+
+/* Botón de envío */
+.recuperar-password .btn-login {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Enlaces para volver o recuperar la contraseña */
+.recuperar-password .enlace-recuperar {
+    display: block;
+    margin-top: 22px;
+    text-align: center;
+}
+
+/* Mensajes de resultado */
+#mensajeRecuperacion, #mensajeNuevoPassword {
+    margin-top: 18px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .recuperar-password {
+        padding: 20px;
+        margin-top: 18px;
+    }
+    .recuperar-password h2 {
+        font-size: 21px;
+    }
+}
+
+/* Separamos mejor los elementos de los formularios */
+.recuperar-password form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Etiquetas de los campos */
+.recuperar-password .campo-login label {
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Campos de email, token y contraseña */
+.recuperar-password .campo-login input {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background-color: #f9fafb;
+    color: #111827;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+/* Resaltamos el campo seleccionado */
+.recuperar-password .campo-login input:focus {
+    border-color: #2563eb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Color del texto de ejemplo */
+.recuperar-password .campo-login input::placeholder {
+    color: #9ca3af;
+}
+
+/* Botones de recuperación y cambio de contraseña */
+.recuperar-password .btn-login {
+    min-height: 46px;
+    margin-top: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 9px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.recuperar-password .btn-login:hover {
+    background-color: #1d4ed8;
+}
+
+.recuperar-password .btn-login:active {
+    transform: scale(0.99);
+}
+
+/* Enlaces de volver */
+.recuperar-password .enlace-recuperar {
+    margin-top: 24px;
+    color: #2563eb;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.recuperar-password .enlace-recuperar:hover {
+    text-decoration: underline;
+}

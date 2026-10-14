@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Indicamos que el documento utiliza caracteres UTF-8.
+         Esto permite mostrar correctamente tildes, ñ, etc. -->
+    <meta charset="UTF-8">
+
+    <!-- Hacemos que la página se adapte correctamente
+         a diferentes tamaños de pantalla. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Texto que aparecerá en la pestaña del navegador. -->
+     <title>Gestor de Incidencias - Login</title>
+     <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    
+    <!-- Contenedor principal de toda la pantalla -->
+     <main class="pantalla-login">
+
+        <!-- Tarjeta de inicio de sesión -->
+         <section class="tarjeta-login">
+
+            <!-- Cabecera de la app -->
+             <div class="cabecera-login">
+
+                <!-- Logo visual de la app -->
+                 <div class="logo-aplicacion">
+                    GI
+                 </div>
+
+                 <h1>Gestor de Incidencias</h1>
+                 <p>Gestiona tus incidencias de forma sencilla</p>
+
+             </div>
+
+             <!-- Zona del formulario -->
+             <div class="contenido-login">
+
+                <h2>Inciar sesión</h2>
+                <p class="texto-ayuda">
+                    Introduce tus credenciales para acceder.
+                </p>
+
+                <form id="loginForm">
+
+                    <!-- Campo email -->
+                     <div class="campo-login">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="daniel@ejemplo.com"
+                            autocomplete="off"
+                            required
+                        >
+
+                     </div>
+
+                     <!-- Campo contraseña -->
+                      <div class="campo-login">
+
+                        <label for="password">
+                            Contraseña
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Introduce tu contraseña"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                      </div>
+
+                      <!-- Botón de inicio de sesión -->
+                       <button
+                        type="submit"
+                        class="btn-login"
+                        >
+                            Iniciar sesión
+                        </button>
+
+                        <!-- Enlace para recuperar la contraseña -->
+                        <a
+                            href="#"
+                            id="enlaceRecuperarPassword"
+                            class="enlace-recuperar"
+                        >
+                        He olvidado mi contraseña
+                        </a>
+
+                </form>
+
+                <!-- Formulario para recuperar la contraseña -->
+                <div
+                    id="recuperarPassword"
+                    class="recuperar-password"
+                    style="display: none;"
+                >
+
+                <h2>Recuperar contraseña</h2>
+
+                <p>
+                    Introduce tu email y te enviaremos las instrucciones
+                    para recuperar su contraseña.
+                </p>
+
+                <form id="formRecuperarPassword">
+
+                    <div class="campoLogin">
+
+                        <label for="emailRecuperacion">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="emailRecuperacion"
+                            placeholder="daniel@ejemplo.com"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn-login"
+                    >
+                        Enviar instrucciones
+                    </button>
+
+                </form>
+
+                <a
+                    href="#"
+                    id="volverLogin"
+                    class="enlace-recuperar"
+                >
+                Volver al inicio de sesión
+                </a>
+
+                <p id="mensajeRecuperacion"></p>
+                </div>
+
+                <!-- Formulario para establecer una nueva contraseña -->
+                 <div id="nuevaPassword" class="recuperar-password" style="display: none;">
+
+                    <h2>Nueva contraseña</h2>
+
+                    <p>Introduce el token de recuperación y tu nueva contraseña.</p>
+
+                    <form id="formNuevaPassword">
+
+                        <div class="campoLogin">
+
+                            <label for="tokenRecuperacion">Token de recuperación</label>
+                            <input
+                                type="text"
+                                id="tokenRecuperacion"
+                                placeholder="Introduce el token"
+                                required
+                            >
+                        </div>
+
+                        <div class="campoLogin">
+
+                            <label for="passwordNueva">Nueva contraseña</label>
+                            <input
+                                type="password"
+                                id="passwordNueva"
+                                placeholder="Nueva contraseña"
+                                minlength="8"
+                                autocomplete="new-password"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="btn-login">
+                            Cambiar contraseña
+                        </button>
+
+                    </form>
+
+                    <p id="mensajeNuevoPassword"></p>
+                    
+                 </div>
+
+                <!-- Aquí aparecerán los mensajes del login -->
+                 <p id="mensaje"></p>
+
+             </div>
+
+             <!-- Pie de la tarjeta -->
+              <div class="pie-login">
+                Gestor de Incidencias
+              </div>
+
+         </section>
+
+     </main>
+<script src="/js/login.js" defer></script>
+</body>
+</html>
