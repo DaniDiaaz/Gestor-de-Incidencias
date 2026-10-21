@@ -61,6 +61,9 @@ async function cargarIncidencias() {
 
         // Convertimos la respuesta del servidor de JSON a un objeto JS.
         const incidencias = await respuesta.json();
+        console.log('Incidencias recibidas:', incidencias);
+        console.log('Primera incidencia:', incidencias[0]);
+        console.log('Prioridad de la primera:', incidencias[0]?.prioridad);
 
         // Si el servidor responde con 401, significa que el token ha caducado o es inválido.
         if (respuesta.status === 401) {
@@ -98,6 +101,9 @@ async function cargarIncidencias() {
         // Guardamos todas las incidencias recibidas.
         // Después podremos filtrarlas sin volver a consultar al servidor.
         incidenciasActuales = incidencias;
+
+        // Actualizamos el gráfico con las incidencias recibidas del servidor.
+        actualizarGraficoPrioridades(incidencias);
 
         // Buscamos el contenedor HTML donde mostraremos las incidencias.
         const listaIncidencias =
@@ -143,7 +149,6 @@ async function cargarIncidencias() {
                     </button>
                 </div>
 
-                <hr>
             `;
 
             // Añadimos la incidencia al contenedor.
@@ -276,62 +281,148 @@ async function cargarIncidencias() {
     }
 }
 
+
+/**
+ * Dibuja las barras horizontales con el número de incidencias
+ * de cada prioridad.
+ */
+function actualizarGraficoPrioridades(incidencias) {
+
+    // Buscamos el contenedor del gráfico.
+    const contenedor = document.getElementById('graficoPrioridades');
+
+    // Si no existe, no hacemos nada.
+    if (!contenedor) {
+        return;
+    }
+
+    // Definimos las prioridades que queremos representar.
+    const prioridades = [
+        { nombre: 'Alta', valor: 'alta', clase: 'barra-alta' },
+        { nombre: 'Media', valor: 'media', clase: 'barra-media' },
+        { nombre: 'Baja', valor: 'baja', clase: 'barra-baja' }
+    ];
+
+    // Contamos las incidencias de cada prioridad.
+    const cantidades = prioridades.map(prioridad =>
+        incidencias.filter(incidencia =>
+            incidencia.prioridad?.toLowerCase() === prioridad.valor
+        ).length
+    );
+
+    // Obtenemos la cantidad más alta.
+    const cantidadMaxima = Math.max(...cantidades);
+
+    // Si no hay incidencias, mostramos un mensaje.
+    if (cantidadMaxima === 0) {
+        contenedor.innerHTML = `
+            <p class="grafico-vacio">
+                Todavía no hay incidencias para mostrar.
+            </p>
+        `;
+        return;
+    }
+
+    // Creamos las filas del gráfico.
+    contenedor.innerHTML = prioridades.map((prioridad, indice) => {
+
+        // Recuperamos la cantidad ya calculada para esta prioridad.
+        const cantidad = cantidades[indice];
+
+        // Calculamos el ancho de la barra respecto a la mayor.
+        const porcentaje = (cantidad / cantidadMaxima) * 100;
+
+        return `
+            <div class="fila-grafico">
+
+                <div class="info-grafico">
+                    <span>${prioridad.nombre}</span>
+                    <span class="valor-grafico">${cantidad}</span>
+                </div>
+
+                <div class="fondo-barra">
+                    <div
+                        class="barra-grafico ${prioridad.clase}"
+                        style="width: ${porcentaje}%"
+                    ></div>
+                </div>
+
+            </div>
+        `;
+    }).join('');
+}
+
+
 // Buscamos el selector de prioridad que hemos creado en dashboard.html.
 const filtroPrioridad = document.getElementById('filtroPrioridad');
 
-// Detectamos cada vez que el usuario cambia la prioridad seleccionada.
-filtroPrioridad.addEventListener('change', () => {
-    // Obtenemos el valor seleccionado.
+// Buscamos los elementos del filtro, el buscador y el contador.
+const buscarIncidencia = document.getElementById('buscarIncidencia');
+console.log('Campo de búsqueda:', buscarIncidencia);
+const contadorResultados = document.getElementById('contadorResultados');
+
+// Aplicamos conjuntamente la búsqueda y el filtro de prioridad.
+function aplicarFiltros() {
+    // Obtenemos la prioridad seleccionada.
     const prioridadSeleccionada = filtroPrioridad.value;
 
-    // Buscamos todas las incidencias que tenemos actualmente mostradas en pantalla.
-    const incidencias = document.querySelectorAll('#listaIncidencias > div');
+    // Obtenemos el texto escrito y lo convertimos a minúsculas.
+    const textoBuscado = buscarIncidencia.value.trim().toLowerCase();
+    console.log('Texto escrito:', textoBuscado);
 
-    // Recorremos cada incidencia.
+    // Recuperamos todas las tarjetas de incidencias.
+    const incidencias = document.querySelectorAll(
+        '#listaIncidencias > .tarjeta-incidencia'
+    );
+    console.log('Tarjetas encontradas:', incidencias.length);
+    console.log('Primera tarjeta:', incidencias[0]?.querySelector('h3')?.textContent);
+
+    // Contamos las incidencias que quedan visibles.
+    let incidenciasVisibles = 0;
+
+    // Recorremos todas las tarjetas.
     incidencias.forEach((incidencia) => {
-        // Recuperamos la prioridad que guardamos anteriormente en data-prioridad.
+        // Obtenemos la prioridad guardada en la tarjeta.
         const prioridad = incidencia.dataset.prioridad;
 
-        // Si hemos seleccionado "todas", mostramos todas las incidencias.
-        if (prioridadSeleccionada === 'todas') {
-            incidencia.style.display = '';
+        // Obtenemos el título de la incidencia.
+        const elementoTitulo = incidencia.querySelector('h3');
+        const titulo = elementoTitulo
+            ? elementoTitulo.textContent.toLowerCase() : '';
 
-            // Si la prioridad coincide con el filtro, mostramos la incidencia.
-        } else if (prioridad === prioridadSeleccionada) {
-            incidencia.style.display = '';
+        // Comprobamos si coincide con la prioridad seleccionada.
+        const coincidePrioridad =
+            prioridadSeleccionada === 'todas' ||
+            prioridad === prioridadSeleccionada;
 
-            // Si no coincide, la ocultamos.
+        // Comprobamos si coincide con el texto buscado.
+        const coincideBusqueda = titulo.includes(textoBuscado);
+
+        // Solo mostramos la tarjeta si cumple ambos criterios.
+        if (coincidePrioridad && coincideBusqueda) {
+            incidencia.style.display = '';
+            incidenciasVisibles++;
         } else {
             incidencia.style.display = 'none';
         }
     });
-});
 
-// Buscamos el campo de búsqueda.
-const buscarIncidencia = document.getElementById('buscarIncidencia');
+    // Actualizamos el mensaje del contador.
+    if (incidencias.length === 0) {
+        contadorResultados.textContent = 'Todavía no hay incidencias registradas.';
+    } else if (incidenciasVisibles === 0) {
+        contadorResultados.textContent = 'No se encontraron incidencias con esos criterios.';
+    } else {
+        contadorResultados.textContent = `Mostrando ${incidenciasVisibles} de ${incidencias.length} incidencias`;
+    }
+}
 
-// Detectamos cada vez que el usuario escribe.
-buscarIncidencia.addEventListener('input', () => {
-    // Obtenemos el texto escrito y lo pasamos a minúsculas.
-    const textoBuscado = buscarIncidencia.value.toLowerCase();
+// Actualizamos los resultados cuando cambia la prioridad.
+filtroPrioridad.addEventListener('change', aplicarFiltros);
 
-    // Buscamos todas las incidencias que aparecen actualmente en pantalla.
-    const incidencias = document.querySelectorAll('#listaIncidencias > div');
+// Actualizamos los resultados cada vez que se escribe.
+buscarIncidencia.addEventListener('input', aplicarFiltros);
 
-    // Recorremos cada incidencia.
-    incidencias.forEach((incidencia) => {
-        // Buscamos el título de la incidencia.
-        const titulo = incidencia.querySelector('h3').textContent.toLowerCase();
-
-        // Comprobamos si el título contiene el texto que ha escrito el usuario.
-        if (titulo.includes(textoBuscado)) {
-            // Si coincide, mostramos la incidencia.
-            incidencia.style.display = '';
-        } else {
-            incidencia.style.display = 'none';
-        }
-    });
-});
 
 // Función que elimina una incidencia.
 async function eliminarIncidencia(id) {

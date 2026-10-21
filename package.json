@@ -1,13 +1,17 @@
 {
   "name": "gestor-incidencias",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Aplicación web para gestionar incidencias con autenticación y operaciones CRUD.",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "express",
+    "postgresql",
+    "gestion-incidencias"
+  ],
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

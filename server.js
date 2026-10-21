@@ -17,7 +17,6 @@ const jwt = require('jsonwebtoken');
 const autenticarToken = require('./middleware/auth');
 
 const crypto = require('crypto');
-const { error } = require('console');
 
 // Creamos una instancia de la aplicación Express.
 // Esta variable será nuestro servidor.
@@ -141,7 +140,7 @@ app.post('/api/incidencias', autenticarToken, async (req, res) => {
             error: 'Error interno del servidor'
         });
     }
-  
+
 });
 
 // Creamos un endpoint GET para consultar una incidencia concreta mediante su ID.
@@ -532,7 +531,7 @@ app.post('/api/recuperar-password', async (req, res) => {
             .createHash('sha256')
             .update(token)
             .digest('hex');
-        
+
         // Establecemos una caducidad de 15 min.
         const fechaExpiracion = new Date(Date.now() + 15 * 60 * 1000);
 
@@ -593,7 +592,7 @@ app.post('/api/cambiar-password', async (req, res) => {
         .createHash('sha256')
         .update(token)
         .digest('hex');
-    
+
     // Preparamos una conexión para realizar la conexión completa.
     const client = await pool.connect();
 

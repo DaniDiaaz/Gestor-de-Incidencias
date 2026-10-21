@@ -46,48 +46,67 @@
 
             </div>
 
-            <div class="estadisticas">
 
-                <div class="tarjeta-estadistica">
-                    <span class="titulo-estadistica">
-                        Total
-                    </span>
+<!-- Tarjetas resumen de las incidencias -->
+<div class="estadisticas">
 
-                    <strong id="contadorIncidencias">
-                        Incidencias: 0
-                    </strong>
+    <!-- Total de incidencias -->
+    <div class="tarjeta-estadistica tarjeta-total">
+        <div class="estadistica-superior">
+            <span class="icono-estadistica">▤</span>
+            <span class="titulo-estadistica">TOTAL</span>
+        </div>
+
+        <strong id="contadorIncidencias">0</strong>
+        <span class="descripcion-estadistica">Incidencias registradas</span>
+    </div>
+
+    <!-- Incidencias de prioridad baja -->
+    <div class="tarjeta-estadistica tarjeta-baja">
+        <div class="estadistica-superior">
+            <span class="icono-estadistica">↓</span>
+            <span class="titulo-estadistica">PRIORIDAD BAJA</span>
+        </div>
+
+        <strong id="contadorBaja">0</strong>
+        <span class="descripcion-estadistica">Prioridad baja</span>
+    </div>
+
+    <!-- Incidencias de prioridad media -->
+    <div class="tarjeta-estadistica tarjeta-media">
+        <div class="estadistica-superior">
+            <span class="icono-estadistica">↔</span>
+            <span class="titulo-estadistica">PRIORIDAD MEDIA</span>
+        </div>
+
+        <strong id="contadorMedia">0</strong>
+        <span class="descripcion-estadistica">Prioridad media</span>
+    </div>
+
+    <!-- Incidencias de prioridad alta -->
+    <div class="tarjeta-estadistica tarjeta-alta">
+        <div class="estadistica-superior">
+            <span class="icono-estadistica">↑</span>
+            <span class="titulo-estadistica">PRIORIDAD ALTA</span>
+        </div>
+
+        <strong id="contadorAlta">0</strong>
+        <span class="descripcion-estadistica">Prioridad alta</span>
+    </div>
+
+</div>
+
+
+            <!-- Gráfico de distribución de incidencias por prioridad -->
+            <div class="seccion-grafico">
+
+                <div class="cabecera-grafico">
+                    <h3>Incidencias por prioridad</h3>
+                    <p>Distribución de las incidencias según su nivel de prioridad.</p>
                 </div>
 
-                <div class="tarjeta-estadistica">
-                    <span class="titulo-estadistica">
-                        Baja
-                    </span>
-
-                    <strong id="contadorBaja">
-                        Baja: 0
-                    </strong>
-                </div>
-
-                <div class="tarjeta-estadistica">
-                    <span class="titulo-estadistica">
-                        Media
-                    </span>
-
-                    <strong id="contadorMedia">
-                        Media: 0
-                    </strong>
-                </div>
-
-                <div class="tarjeta-estadistica">
-                    <span class="titulo-estadistica">
-                        Alta
-                    </span>
-
-                    <strong id="contadorAlta">
-                        Alta: 0
-                    </strong>
-                </div>
-
+            <!-- JS generará aquí las barras con los datos reales -->
+            <div id="graficoPrioridades" class="grafico-prioridades"></div>
             </div>
 
             <!-- Este contenedor estará vacío inicialmente. JS consultará la API y añadirá
@@ -118,47 +137,67 @@
             </div>
 
 
+            <!-- Contador de resultados de la búsqueda y los filtros -->
+            <p id="contadorResultados" class="contador-resultados" aria-live="polite">
+            Cargando incidencias...
+            </p>
+
+            <!-- Aquí se mostrarán las tarjetas de incidencias -->
             <div id="listaIncidencias"></div>
+
         </section>
         <section class="seccion-formulario">
-            <h2>Nueva incidencia</h2>
-            <form id="incidenciaForm">
+
+            <div class="cabecera-formulario">
+                <div class="icono-formulario">
+
+                    <span>+</span>
+                </div>
+
                 <div>
-                    <label for="titulo">Título:</label>
+                    <h2>Nueva incidencia</h2>
+                    <p>Completa los datos para registrar un nuevo problema.</p>
+                </div>
+
+            </div>
+
+            <form id="incidencia-form">
+
+                <div class="campo-formulario">
+                    <label for="titulo">Título de la incidencia</label>
                     <input
-                    type="text"
-                    id="titulo"
-                    name="titulo"
-                    placeholder="Describe la incidencia"
-                    maxlength="100"
-                    required>
+                        type="text"
+                        id="titulo"
+                        name="titulo"
+                        placeholder="Ej. La impresora no funciona"
+                        maxlength="100"
+                        required>
+                    <small>Máximo 100 caracteres.</small>
+
                 </div>
-                <br>
-                <div>
-                    <label for="prioridad">Prioridad:</label>
+
+                <div class="campo-formulario">
+                    <label for="prioridad">Nivel de prioridad</label>
                     <select id="prioridad" name="prioridad" required>
-                        <option value="">
-                            Selecciona una prioridad
-                        </option>
-                        <option value="baja">
-                            Baja
-                        </option>
-                        <option value="media">
-                            Media
-                        </option>
-                        <option value="alta">
-                            Alta
-                        </option>
+                        <option value="">Selecciona una prioridad</option>
+                        <option value="baja">Baja</option>
+                        <option value="media">Media</option>
+                        <option value="alta">Alta</option>
                     </select>
+
                 </div>
-                <br>
-                <button type="submit" class="btn-crear">
-                    Crear incidencia
-                </button>
+
+                <div class="acciones-formulario">
+
+                    <button type="submit" class="btn-crear">
+                        <span aria-hidden="true">+</span>
+                        Crear incidencia
+                    </button>
+                </div>
+
             </form>
-            <!-- Aquí mostraremos mensajes como: "Incidencia creada correctamente" o 
-             posibles errores. -->
-             <p id="mensajeIncidencia"></p>
+
+            <p id="mensaje-incidencia" aria-live="polite"></p>
         </section>
 
     </main>
