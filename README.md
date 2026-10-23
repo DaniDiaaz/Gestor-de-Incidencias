@@ -14,6 +14,8 @@ Aplicación web para gestionar incidencias, desarrollada como proyecto de aprend
 - Recuperación de contraseña mediante tokens.
 - Interfaz web con HTML, CSS y JavaScript.
 
+![Panel de estadísticas](screenshots/dashboard.png)
+
 ## Tecnologías utilizadas
 
 - **Backend:** Node.js y Express.
